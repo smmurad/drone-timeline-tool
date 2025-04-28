@@ -1,0 +1,32 @@
+{
+  "name": "ci-tool-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension for CI tool",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "react",
+    "ci"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.246",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.5",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-static-copy": "^0.17.0"
+  }
+}

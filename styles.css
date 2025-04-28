@@ -1,0 +1,73 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 300px;
+}
+
+.container {
+  padding: 15px;
+}
+
+h1 {
+  font-size: 18px;
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.status-container {
+  margin-bottom: 15px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #4285f4;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3367d6;
+}
+
+.results {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.result-item {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.result-label {
+  font-weight: bold;
+  width: 80px;
+}
+
+/* Status colors */
+.success {
+  color: #0f9d58;
+  font-weight: bold;
+}
+
+.failure {
+  color: #db4437;
+  font-weight: bold;
+}
+
+.running {
+  color: #f4b400;
+  font-weight: bold;
+}
