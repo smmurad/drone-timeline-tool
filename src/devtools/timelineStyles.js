@@ -29,6 +29,7 @@ export function addWaterfallStyles() {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      position: relative;
     }
     .timeline-header {
       display: flex;
@@ -146,6 +147,33 @@ export function addWaterfallStyles() {
     }
     .bold {
       font-weight: bold;
+    }
+    
+    /* Cursor line styles */
+    .cursor-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: rgba(0, 76, 255, 0.7);
+      pointer-events: none;
+      z-index: 10;
+      display: none;
+    }
+    
+    /* Time indicator styles */
+    .cursor-time-indicator {
+      position: sticky;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-bottom: 5px;
+      display: none;
+      z-index: 20;
+      align-self: flex-start;
     }
   `;
   

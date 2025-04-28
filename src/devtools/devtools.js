@@ -1,45 +1,54 @@
-// Create the panel
-chrome.devtools.panels.create(
-  "CI Testing", // Panel title
-  null, // Icon path (optional)
-  "panel.html", // Panel HTML page
-  (panel) => {
-    // Create a port for communication with the panel
-    let panelPort;
-    
-    panel.onShown.addListener((panelWindow) => {
-      // This fires when the panel is shown
-      panelPort = panelWindow;
-    });
-    
-    // Set up network request monitoring
-    chrome.devtools.network.onRequestFinished.addListener(
-      (request) => {
-        request.getContent((content, encoding) => {
-          const urlPattern = /^https:\/\/delivery\.squarespace\.net\/api\/repos\/sqsp\/[\w-]+\/builds\/\d+$/;
-          if (!urlPattern.test(request.request.url)) {
-            return;
-          }
+// Only initialize the panel if on the desired URL
+const targetUrl = "https://delivery.squarespace.net/";
 
-          try {
-            // Parse the content into JSON
-            const contentJson = JSON.parse(content);
-            
-            // Process the data using helper functions
-            const extractedData = extractStagesAndSteps(contentJson);
-            
-            // If panel is open, send directly to it
-            if (panelPort && panelPort.displayRequest) {
-              panelPort.displayRequest(extractedData);
-            }
-          } catch (error) {
-            console.error("Error processing request data:", error);
-          }
-        });
-      }
-    );
+chrome.devtools.inspectedWindow.eval('window.location.href', (url, error) => {
+  if (error || !url.startsWith(targetUrl)) {
+    console.log("Not on delivery.squarespace.net, panel not loaded");
+    return;
   }
-);
+  
+  chrome.devtools.panels.create(
+    "Drone Timeline", // Panel title
+    null, // Icon path (optional)
+    "panel.html", // Panel HTML page
+    (panel) => {
+      // Create a port for communication with the panel
+      let panelPort;
+      
+      panel.onShown.addListener((panelWindow) => {
+        // This fires when the panel is shown
+        panelPort = panelWindow;
+      });
+      
+      // Set up network request monitoring
+      chrome.devtools.network.onRequestFinished.addListener(
+        (request) => {
+          request.getContent((content, encoding) => {
+            const urlPattern = /^https:\/\/delivery\.squarespace\.net\/api\/repos\/sqsp\/[\w-]+\/builds\/\d+$/;
+            if (!urlPattern.test(request.request.url)) {
+              return;
+            }
+
+            try {
+              // Parse the content into JSON
+              const contentJson = JSON.parse(content);
+              
+              // Process the data using helper functions
+              const extractedData = extractStagesAndSteps(contentJson);
+              
+              // If panel is open, send directly to it
+              if (panelPort && panelPort.displayRequest) {
+                panelPort.displayRequest(extractedData);
+              }
+            } catch (error) {
+              console.error("Error processing request data:", error);
+            }
+          });
+        }
+      );
+    }
+  );
+});
 
 /**
  * Extracts stages and steps from the content JSON
