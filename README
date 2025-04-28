@@ -1,0 +1,54 @@
+# Drone Timeline Tool
+
+A Chrome DevTools extension that visualizes CI/CD pipeline execution in Drone CI, providing an interactive timeline view of build stages and steps.
+
+![Drone Timeline Tool Screenshot](screenshot.png)
+
+## Features
+
+- 🔍 Interactive timeline visualization of Drone CI builds
+- ⏱️ Detailed duration metrics for each stage and step
+- 🎯 Real-time cursor tracking to measure time intervals
+- 🔄 Automatic detection of build API requests
+- 🎨 Color-coded status indicators for quick status assessment
+- 📱 Responsive layout that works across all DevTools window sizes
+
+## Installation
+
+### From Source
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/drone-timeline-tool.git
+   cd drone-timeline-tool
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Build the extension:
+   ```
+   npm run build
+   ```
+
+4. Load the extension in Chrome:
+   - Open Chrome and navigate to `chrome://extensions/`
+   - Enable "Developer mode" in the top-right corner
+   - Click "Load unpacked" and select the `dist` directory from this project
+
+
+## Usage
+
+1. Open Chrome DevTools on any page with a Drone CI build (domain must start with `https://delivery.`)
+2. Navigate to the "Drone Timeline" panel in the DevTools
+3. View the build stages and steps visualized on a timeline:
+   - Each stage shows a total duration bar at the top
+   - Individual steps are displayed below with their respective durations
+   - Hovering over a bar displays detailed timing information
+   - Status is color-coded (green for success, red for failure, blue for running, yellow for waiting)
+
+4. Use the cursor tracking feature to measure specific time intervals:
+   - Move your cursor over the timeline to see the time at that position
+   - The time indicator at the top shows both the absolute time and duration from the start
