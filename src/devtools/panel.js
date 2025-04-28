@@ -3,7 +3,7 @@ import { addWaterfallStyles } from './timelineStyles.js';
 import { formatDuration } from './timelineUtils.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Export the displayRequest function to be callable from devtools.js
-    window.displayRequest = (extractedData) => {
+    window.displayRequest = (extractedData, repoName) => {
       const container = document.getElementById('requests-container');
       const requestElement = document.createElement('div');
       requestElement.className = 'request-item';
@@ -41,8 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Construct the full HTML
       requestElement.innerHTML = `
+        <h2>Repo: ${repoName}</h2>
+        <h3>Message: ${extractedData.message}</h3>
         <div class="build-info">
-          <h3>Build Timeline</h3>
+          <h3>Build Timeline.</h3>
           <div class="timestamp">Captured: ${new Date().toLocaleString()}</div>
         </div>
         <div class="waterfall-timeline">

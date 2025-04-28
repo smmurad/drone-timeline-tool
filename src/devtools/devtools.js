@@ -6,6 +6,9 @@ chrome.devtools.inspectedWindow.eval('window.location.href', (url, error) => {
     console.log("Not on delivery path, panel not loaded");
     return;
   }
+  
+  // Extract repo name from URL pattern: https://delivery.squarespace.net/sqsp/wayfinder/13082
+  const repoName = url.split('/')[4]
   chrome.devtools.panels.create(
     "Drone Timeline", // Panel title
     null, // Icon path (optional)
@@ -34,10 +37,10 @@ chrome.devtools.inspectedWindow.eval('window.location.href', (url, error) => {
               
               // Process the data using helper functions
               const extractedData = extractStagesAndSteps(contentJson);
-              
+
               // If panel is open, send directly to it
               if (panelPort && panelPort.displayRequest) {
-                panelPort.displayRequest(extractedData);
+                panelPort.displayRequest(extractedData, repoName);
               }
             } catch (error) {
               console.error("Error processing request data:", error);
@@ -64,12 +67,15 @@ function extractStagesAndSteps(contentJson) {
   if (!contentJson || !contentJson.stages) {
     return result;
   }
+
+  const originalMessage = contentJson.message || "No message";
+  result.message = originalMessage.length > 20 ? originalMessage.substring(0, 120) + "..." : originalMessage;
   
   // Extract stages and their steps
   result.stages = contentJson.stages.map(stage => {
     return {
       name: getStageNameSafely(stage),
-      steps: extractStepsFromStage(stage)
+      steps: extractStepsFromStage(stage),
     };
   });
   
