@@ -1,12 +1,11 @@
 // Only initialize the panel if on the desired URL
-const targetUrl = "https://delivery.squarespace.net/";
+const targetUrl = "https://delivery.";
 
 chrome.devtools.inspectedWindow.eval('window.location.href', (url, error) => {
   if (error || !url.startsWith(targetUrl)) {
-    console.log("Not on delivery.squarespace.net, panel not loaded");
+    console.log("Not on delivery path, panel not loaded");
     return;
   }
-  
   chrome.devtools.panels.create(
     "Drone Timeline", // Panel title
     null, // Icon path (optional)
@@ -24,7 +23,7 @@ chrome.devtools.inspectedWindow.eval('window.location.href', (url, error) => {
       chrome.devtools.network.onRequestFinished.addListener(
         (request) => {
           request.getContent((content, encoding) => {
-            const urlPattern = /^https:\/\/delivery\.squarespace\.net\/api\/repos\/sqsp\/[\w-]+\/builds\/\d+$/;
+            const urlPattern = /^https:\/\/delivery\.[\w-]+\.net\/api\/repos\/[\w-]+\/[\w-]+\/builds\/\d+$/;
             if (!urlPattern.test(request.request.url)) {
               return;
             }
