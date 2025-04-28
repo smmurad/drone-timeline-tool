@@ -94,12 +94,14 @@ function extractStepsFromStage(stage) {
   
   // Extract step information
   return stage.steps.map(step => {
+    const startTime = step.started * 1000 || null;
+    const endTime = step.stopped * 1000 || null;
     return {
       name: step.name || "Unknown Step",
       status: step.status || "unknown",
-      startTime: step.startTime || null,
-      endTime: step.endTime || null,
-      duration: calculateDuration(step.startTime, step.endTime)
+      startTime: startTime,
+      endTime: endTime,
+      duration: calculateDuration(startTime, endTime)
     };
   });
 }
@@ -117,6 +119,6 @@ function calculateDuration(startTime, endTime) {
   
   const start = new Date(startTime).getTime();
   const end = new Date(endTime).getTime();
-  
+
   return isNaN(start) || isNaN(end) ? null : end - start;
 }
