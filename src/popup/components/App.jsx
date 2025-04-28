@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import StatusDisplay from './StatusDisplay';
 
 const App = () => {
   
