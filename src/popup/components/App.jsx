@@ -8,14 +8,12 @@ const App = () => {
     chrome.storage.local.get(['requestBody'], (result) => {
       if (result.requestBody) {
         setRequestData(result.requestBody);
-        console.log('Retrieved request data:', result.requestBody);
       }
     });
     
     chrome.storage.onChanged.addListener((changes, namespace) => {
       if (namespace === 'local' && changes.requestBody) {
         setRequestData(changes.requestBody.newValue);
-        console.log('Updated request data:', changes.requestBody.newValue);
       }
     });
     
@@ -23,14 +21,6 @@ const App = () => {
       chrome.storage.onChanged.removeListener(listener);
     };
   }, []);
-
-  const refreshStatus = () => {
-    console.log("not implemented");
-  };
-
-  const viewDetails = () => {
-    console.log("not implemented");
-  };
 
   return (
     <div className="container">

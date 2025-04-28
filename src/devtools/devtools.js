@@ -4,8 +4,6 @@ chrome.devtools.panels.create(
   null, // Icon path (optional)
   "panel.html", // Panel HTML page
   (panel) => {
-    console.log("CI Testing panel created");
-    
     // Create a port for communication with the panel
     let panelPort;
     
@@ -29,8 +27,6 @@ chrome.devtools.panels.create(
             
             // Process the data using helper functions
             const extractedData = extractStagesAndSteps(contentJson);
-            
-            console.log("found extractedData", extractedData);
             
             // If panel is open, send directly to it
             if (panelPort && panelPort.displayRequest) {

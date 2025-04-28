@@ -2,8 +2,6 @@ import { renderTimeline } from './timelineRenderer.js';
 import { addWaterfallStyles } from './timelineStyles.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('CI Testing panel loaded');
-    
     // Export the displayRequest function to be callable from devtools.js
     window.displayRequest = (extractedData) => {
       const container = document.getElementById('requests-container');
